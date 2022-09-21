@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: internal-proxy-deployment
+  labels:
+    app: internal-proxy
+  annotations:
+    checkov.io/skip1: CKV_K8S_43=boomroasted
+spec:
+  selector:
+    matchLabels:
+      app: internal-proxy
+  template:
+    metadata:
+      labels:
+        app: internal-proxy
+    spec:
+      containers:
+      - name: internal-api
+        # checkov:skip=CKV_K8S_30: ADD REASON
+        image: madhuakula/k8s-goat-internal-api
+        resources:
+          limits:
+            cpu: 30m
+            memory: 40Mi
+          requests:
+            cpu: 30m
+            memory: 40Mi
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: system-monitor-service
+spec:
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: system-monitor
+---
+apiVersion: v1
+kind: SomethingElse
+metadata:
+  name: some-resource
+spec:
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: system-monitor
