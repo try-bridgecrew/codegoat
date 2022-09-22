@@ -99,9 +99,9 @@ resource "aws_ssm_parameter" "example_ssm_db_name" {
 }
 
 resource "aws_s3_bucket" "my-private-bucket" {
-  bucket = "example-storage-${var.environment}-demo"
+  bucket = "example-private-${var.environment}-demo"
   tags = merge(var.default_tags, {
-    name = "example_blob_storage_${var.environment}"
+    name = "example_private_${var.environment}"
   })
 }
 
