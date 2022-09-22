@@ -98,27 +98,27 @@ resource "aws_ssm_parameter" "example_ssm_db_name" {
   })
 }
 
-resource "aws_s3_bucket" "example_storage" {
+resource "aws_s3_bucket" "my-private-bucket" {
   bucket = "example-storage-${var.environment}-demo"
   tags = merge(var.default_tags, {
     name = "example_blob_storage_${var.environment}"
   })
 }
 
-resource "aws_s3_bucket" "my-bucket" {
+resource "aws_s3_bucket" "public-bucket-oops" {
   bucket = "example-public-${var.environment}-demo"
 }
 
-resource "aws_s3_bucket_public_access_block" "example_public" {
-  bucket = aws_s3_bucket.my-bucket.id
+resource "aws_s3_bucket_public_access_block" "public_access" {
+  bucket = aws_s3_bucket.public-bucket-oops.id
 
-  ignore_public_acls = var.public_var_test
-  block_public_acls   = var.public_var_test
-  block_public_policy = var.public_var_test
+  ignore_public_acls = var.public_var
+  block_public_acls   = var.public_var
+  block_public_policy = var.public_var
 }
 
-resource "aws_s3_bucket_public_access_block" "example_private" {
-  bucket = aws_s3_bucket.example_storage.id
+resource "aws_s3_bucket_public_access_block" "private_access" {
+  bucket = aws_s3_bucket.my-private-bucket.id
 
   ignore_public_acls  = true
   block_public_acls   = true
