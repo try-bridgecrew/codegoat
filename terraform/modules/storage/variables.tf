@@ -7,7 +7,7 @@ variable "default_tags" {
   description = "default tags"
 }
 
-variable "public_var_test" {
+variable "public_var" {
   default     = false
   description = "value for publicly accessible s3"
 }
