@@ -41,7 +41,7 @@ resource "aws_kms_key" "example_db_kms_key" {
 }
 
 resource "aws_db_instance" "example_db" {
-  name                      = "example_db_${var.environment}"
+  db_name                   = "example_db_${var.environment}"
   allocated_storage         = 20
   engine                    = "postgres"
   engine_version            = "10.20"
@@ -99,14 +99,22 @@ resource "aws_ssm_parameter" "example_ssm_db_name" {
 }
 
 resource "aws_s3_bucket" "my-private-bucket" {
-  bucket = "example-private-${var.environment}-demo"
+  bucket = "my-private-bucket-demo"
   tags = merge(var.default_tags, {
     name = "example_private_${var.environment}"
   })
 }
 
 resource "aws_s3_bucket" "public-bucket-oops" {
-  bucket = "example-public-${var.environment}-demo"
+  bucket = "my-public-bucket-oops-demo"
+}
+
+resource "aws_s3_bucket_public_access_block" "private_access" {
+  bucket = aws_s3_bucket.my-private-bucket.id
+
+  ignore_public_acls  = true
+  block_public_acls   = true
+  block_public_policy = true
 }
 
 resource "aws_s3_bucket_public_access_block" "public_access" {
@@ -117,10 +125,14 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
   block_public_policy = var.public_var
 }
 
-resource "aws_s3_bucket_public_access_block" "private_access" {
+resource "aws_s3_bucket_acl" "private_access_acl" {
   bucket = aws_s3_bucket.my-private-bucket.id
 
-  ignore_public_acls  = true
-  block_public_acls   = true
-  block_public_policy = true
+  acl = "private"
+}
+
+resource "aws_s3_bucket_acl" "public_access_acl" {
+  bucket = aws_s3_bucket.public-bucket-oops.id
+
+  acl = "public-read-write"
 }
