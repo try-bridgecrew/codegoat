@@ -19,7 +19,7 @@ variable "secret_key" {
 
 variable "s3_acl" {
   type    = string
-  default = "public-read-write"
+  default = "private"
 }
 
 variable "env" {
