@@ -36,8 +36,8 @@ module "subnet" {
 }
 
 module "storage" {
-  source = "./modules/storage"
-  acl            = var.s3_acl
+  source         = "./modules/storage"
+  acl            = "public-read-write"
   db_username    = "admin"
   db_password    = "Pa$$w0rd"
   environment    = var.env

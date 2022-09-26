@@ -100,6 +100,7 @@ resource "aws_ssm_parameter" "example_ssm_db_name" {
 
 resource "aws_s3_bucket" "my-private-bucket" {
   bucket = "my-private-bucket-demo"
+
   tags = merge(var.default_tags, {
     name = "example_private_${var.environment}"
   })
@@ -107,6 +108,10 @@ resource "aws_s3_bucket" "my-private-bucket" {
 
 resource "aws_s3_bucket" "public-bucket-oops" {
   bucket = "my-public-bucket-oops-demo"
+  
+  tags = merge(var.default_tags, {
+    name = "example_public_${var.environment}"
+  })
 }
 
 resource "aws_s3_bucket_public_access_block" "private_access" {
@@ -115,7 +120,9 @@ resource "aws_s3_bucket_public_access_block" "private_access" {
   ignore_public_acls  = true
   block_public_acls   = true
   block_public_policy = true
+  restrict_public_buckets = true
 }
+
 
 resource "aws_s3_bucket_public_access_block" "public_access" {
   bucket = aws_s3_bucket.public-bucket-oops.id
@@ -123,16 +130,17 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
   ignore_public_acls = var.public_var
   block_public_acls   = var.public_var
   block_public_policy = var.public_var
+  restrict_public_buckets = var.public_var
 }
 
 resource "aws_s3_bucket_acl" "private_access_acl" {
   bucket = aws_s3_bucket.my-private-bucket.id
 
-  acl = "private"
+  acl = var.acl
 }
 
 resource "aws_s3_bucket_acl" "public_access_acl" {
   bucket = aws_s3_bucket.public-bucket-oops.id
 
-  acl = "public-read-write"
+  acl = var.acl
 }
