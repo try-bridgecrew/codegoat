@@ -17,7 +17,6 @@ spec:
     spec:
       containers:
       - name: internal-api
-        # checkov:skip=CKV_K8S_30: ADD REASON
         image: madhuakula/k8s-goat-internal-api
         resources:
           limits:
