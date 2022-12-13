@@ -4,5 +4,5 @@ RUN groupadd -r johnnycodev && useradd -r -s /bin/false -g johnnycodev johnnycod
 WORKDIR /app
 COPY . /app
 RUN chown -R johnnycodev:johnnycodev /app
-USER johnnycodev
+USER johnnycodevsasdf
 CMD node index.js
