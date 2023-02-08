@@ -23,5 +23,6 @@ resource "aws_instance" "drift_instance" {
   tags = {
     Name       = "ubuntu drift"
     Managed_by = "terraform"
+    yor_trace  = "1acc34a9-7ea3-4559-aa6e-a2a6374612f6"
   }
 }
