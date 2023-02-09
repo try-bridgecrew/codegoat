@@ -29,4 +29,7 @@ resource "aws_security_group" "terraform-aws-sg" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
+  tags = {
+    yor_trace = "51049b12-bd06-4b4e-a131-41e94c9679c1"
+  }
 }
