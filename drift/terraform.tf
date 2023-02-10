@@ -5,11 +5,10 @@ terraform {
       version = ">=4.4.0"
     }
   }
-  backend "remote" {
-    organization = "jmcguigan"
-    workspaces {
-      name = "terraform-aws"
-    }
+  backend "s3" {
+    region = "us-east-1"
+    bucket = "codegoat-terraform-state-jenkins"
+    key = "remote.tfstate"
   }
 }
 
