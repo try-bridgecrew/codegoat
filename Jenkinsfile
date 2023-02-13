@@ -21,7 +21,7 @@ pipeline {
                  script{
                         dir("terraform")
                         {
-                            git "https://github.com/jamcg/codegoat.git"
+                            checkout scm
                         }
                     }
                 }
