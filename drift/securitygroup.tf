@@ -1,5 +1,5 @@
 resource "aws_security_group" "terraform-aws-sg" {
-  name        = "terraform-aws-sg"
+  name        = "terraform-drift-sg"
   description = "Allow ports for app"
   ingress {
     description = "SSH"
