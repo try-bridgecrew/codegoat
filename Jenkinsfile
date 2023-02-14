@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        PRISMA_API_URL="https://api.eu.prismacloud.io"
-    }
-
     parameters {
         string(name: 'environment', defaultValue: 'terraform', description: 'Workspace/environment file to use for deployment')
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
@@ -16,6 +12,7 @@ pipeline {
      environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        PRISMA_API_URL        = "https://api.eu.prismacloud.io"
     }
 
 
