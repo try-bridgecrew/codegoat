@@ -22,7 +22,8 @@ pipeline {
                  script{
                         dir("terraform")
                         {
-                            checkout scm
+                            git branch: 'main', url: 'https://github.com/jamcg/codegoat.git'
+                            stash includes: '**/*', name: 'source'
                         }
                     }
                 }
