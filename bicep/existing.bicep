@@ -14,7 +14,7 @@ resource serverDefault 'Microsoft.Sql/servers@2021-02-01-preview' = {
   properties: {
     administratorLogin: sqlLogicalServer.userName
     administratorLoginPassword: password
-    version: '12.0'
+    version: '12.00'
     minimalTlsVersion: sqlLogicalServer.minimalTlsVersion
     publicNetworkAccess: sqlLogicalServer.publicNetworkAccess
   }
