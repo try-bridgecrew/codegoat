@@ -3,6 +3,7 @@
     "organization": {
       "name": "Bridgecrew",
       "login": "bridgecrewio",
+      "login2": "bridgecrewio",
       "description": "Secure public cloud infrastructure",
       "ipAllowListEnabledSetting": "DISABLED",
       "ipAllowListForInstalledAppsEnabledSetting": "DISABLED",
